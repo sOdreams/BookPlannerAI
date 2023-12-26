@@ -1,1 +1,1 @@
-# Practica---IA---Planificacio
+# Practica-IA-Planificacio
