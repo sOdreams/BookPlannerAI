@@ -21,7 +21,9 @@
     :parameters (?l - libro ?l2 - libro)
     :precondition (and (esPredecesor ?l ?l2)
                         (not (libroPlanificado ?l))
-                        (not (libroLeido ?l)))
+                        (not (libroLeido ?l))
+                        (libroAPlanificar ?l2)
+                  )
     :effect (libroAplanificar ?l)
 )
 
