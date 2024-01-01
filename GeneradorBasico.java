@@ -76,31 +76,25 @@ public class GeneradorBasico {
     private static void generaLeidos(){
         Random rand = new Random();
         int numPred = rand.nextInt(Libros.size());
-        ArrayList<String> LibrosAux = new ArrayList<String>();
 
         for(int i=0; i<numPred ; ++i)
         {
             int libro = rand.nextInt(Libros.size());    //Escojo un libro de forma aleatoria
             Leidos.add(Libros.get(libro));              //lo meto en el array de Leidos
-            LibrosAux.add(Libros.get(libro));           //Añadimos los libros que vamos a quitar para generar los Aplanificar
             Libros.remove(libro);                       //lo quito del array de libros para que no vuelva a salir
         }
-        Libros.addAll(LibrosAux);                       //Añadimos los libros previamente borrados
     }
 
     private static void generaAplanificar(){
         Random rand = new Random();
         int numPred = rand.nextInt(Libros.size());
-        ArrayList<String> LibrosAux = new ArrayList<String>();
 
         for(int i=0; i<numPred ; ++i)
         {
-            int libro = rand.nextInt(Libros.size());    //Escojo un libro de forma aleatoria
+            int libro = rand.nextInt(Libros.size());    //Escojo un libro de forma aleatoria de los nos leidos
             Aplanificar.add(Libros.get(libro));         //lo meto en el array de Aplanificar
-            LibrosAux.add(Libros.get(libro));           //Añadimos los libros que vamos a quitar
             Libros.remove(libro);                       //lo quito del array de libros para que no vuelva a salir
         }
-        Libros.addAll(LibrosAux);                       //Añadimos los libros previamente borrados
     }
 
     private static void generaLibros(){
