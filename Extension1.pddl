@@ -19,17 +19,21 @@
     ;libro l planificado
     (libroPlanificado ?l - libro)
 
-    ;mes m anterior a mes m2
-    (mesAnterior ?m - mes ?m2 - mes)
+  )
 
-    (libroPlanificadoMes ?l - libro ?m - mes) ;; te dice en que mes a sido planificado un libro (importante para los predecesores)
+  (:functions
+    ;dado un mes devuelve su numero tipo enero -> 1
+    (mesANumero ?m - mes)
+    ;mes en el que se planifica el libro l
+    ;es como unas asignaciones de libro a mes los cuales estan inicialmente a 0 (aun no planificados)
+    (mesLibroPlanificado ?l - libro)
   )
 
   ; en caso de que el libro l2 se tiene que leer despues de leer l
   (:action planificar-predecesor
       :parameters (?l - libro ?l2 - libro)
       :precondition (and (esPredecesor ?l ?l2)
-                          (not (libroPlanificado ?l))
+                          ;(not (libroAPlanificar ?l))
                           (not (libroLeido ?l))
                           (libroAPlanificar ?l2)
                     )
@@ -40,24 +44,20 @@
     :parameters (?l - libro ?m - mes)
     :precondition (and (not (libroPlanificado ?l))
                    (libroAPlanificar ?l))              
-
     ;Cuando no existe un libro predecesor que no se haya planificado.
     ;Cuando no exise un libro predecesor que se haya planificado y en un mes no anterior al mes actual.
-  :effect (when (not (exists (?l2 - libro)
-                      (and (esPredecesor ?l2 ?l)
+    :effect (when (not (exists (?l2 - libro)
+                  (and (esPredecesor ?l2 ?l)
                         (or (and (not (libroPlanificado ?l2)) (not (libroleido ?l2)))
-                            (and (libroPlanificado ?l2) 
-                              (exists (?m2 - mes) 
-                                (and (libroPlanificadoMes ?l2 ?m2)
-                                (not (mesAnterior ?m2 ?m)))
-                              )
-                           )
+                            (>= (mesLibroPlanificado ?l2) (mesANumero ?m))
                         )
+                      )
                     )
                   )
-                )
-          (and
-           (libroPlanificado ?l)
-           (libroPlanificadoMes ?l ?m)))  
+              (and
+                (libroPlanificado ?l)
+                (assign (mesLibroPlanificado ?l) (mesANumero ?m))
+              )
+            )  
   )
 )
