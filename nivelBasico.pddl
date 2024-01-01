@@ -1,62 +1,39 @@
 (define (domain nivelBasico)
-  (:requirements :fluents :adl ::typing)
+  (:requirements :fluents :adl :typing )
 
   (:types
     libro - object
-    mes - object
   )
 
   (:predicates
+    ;l es predecesor de l2
     (esPredecesor ?l - libro ?l2 - libro)
-    (libroPlanificado ?l - libro)
+    ;libro l leido
     (libroLeido ?l - libro)
-    (libroALeer ?l - libro)
+    ;libro l a planificar
+    (libroAPlanificar ?l - libro)
+    ;libro l planificado
+    (libroPlanificado ?l - libro)
   )
 
-  (:functions
-    (tiempo ?m - mes)
-  )
-
-; action : planificar-libro-con-predecesor
-;   precondicion : el libro se quiere leer y no ha sido planificado y tiene algun predecesor
-;                  si el predecesor no ha sido planificado, se planifica
-;   efecto : el libro se planifica y se deja de querer leer
-
-(:action planificar-libro-con-predecesor-no-leido
-  :parameters (?libro - libro ?predecesor - libro)
-  :precondition (and 
-                 (libroALeer ?libro)
-                 (esPredecesor ?predecesor ?libro)
-                 (not (libroPlanificado ?libro))
-                 (not (libroLeido ?predecesor))
-                 (not (libroPlanificado ?predecesor)))
-  :effect (and 
-           (libroPlanificado ?libro)
-           (not (libroALeer ?libro))
-           (libroALeer ?predecesor)))
-
-
-(:action planificar-libro-con-predecesor-leido
-  :parameters (?libro - libro ?predecesor - libro)
-  :precondition (and 
-                 (libroALeer ?libro)
-                 (esPredecesor ?predecesor ?libro)
-                 (not (libroPlanificado ?libro))
-                 (libroLeido ?predecesor)
-                 (not (libroPlanificado ?predecesor)))
-  :effect (and 
-           (libroPlanificado ?libro)
-           (not (libroALeer ?libro))))
-
-
-
-  (:action establecer-Orden-Sin-Predecesor
-    :parameters (?l - libro)
-    :precondition (and (not (exists (?l2 - libro) (esPredecesor ?l2 ?l)))
-                       (not (libroPlanificado ?l))
-                       (libroALeer ?l)
-    )
-    :effect (and (libroPlanificado ?l) (not (libroALeer ?l)))
-  )
+; en caso de que el libro l2 se tiene que leer despues de leer l
+(:action planificar-predecesor
+    :parameters (?l - libro ?l2 - libro)
+    :precondition (and (esPredecesor ?l ?l2)
+                        (not (libroPlanificado ?l))
+                        (not (libroLeido ?l))
+                        (libroAPlanificar ?l2)
+                  )
+    :effect (libroAplanificar ?l)
 )
 
+(:action planificar-libro
+  :parameters (?l - libro)
+  :precondition (and (not(libroPlanificado ?l)) (libroAPlanificar ?l))
+  :effect (when (not (exists (?l2 - libro)
+                  (and (esPredecesor ?l2 ?l)
+                       (not (libroLeido ?l2)) 
+                           (not (libroPlanificado ?l2)))))
+             (libroPlanificado ?l))
+  )
+)

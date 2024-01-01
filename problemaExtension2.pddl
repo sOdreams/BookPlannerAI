@@ -138,10 +138,10 @@
     ;;1-->{2,3,5,4}-->{7,8}
 )
 
-  (:goal (not (exists (?l - libro) 
+(:goal (not (exists (?l - libro) 
                 (and (libroAPlanificar ?l) (not (libroPlanificado ?l)))
               )
           )
-    )
+)
 
 )
