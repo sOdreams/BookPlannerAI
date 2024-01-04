@@ -80,7 +80,7 @@
     ; (libroAPlanificar book4)
 
     ;;;;;;;;;;;;;;;;;;Juego de prueba 6
-    ; (esPredecesor book1 book3)
+    ;(esPredecesor book1 book3)
     ; (esPredecesor book3 book4)
     ; (esPredecesor book4 book6)
     ; (esPredecesor book6 book9)
@@ -118,24 +118,21 @@
     ; (libroAPlanificar book8)
 
     ;; ;;;;;;;;;;;;;;;;;;Juego de prueba 10 Paralelo
-    ;(esParalelo book3 book1)
-    ;(esParalelo book2 book1)
-    ;(esParalelo book book1)
-    ;(esParalelo book4 book1)
-    ;(esParalelo book5 book1)
-    ;(esParalelo book6 book1)
-    ;(libroAPlanificar book1)
+    ; (esParalelo book3 book1)
+    ; (esParalelo book2 book1)
+    ; (esParalelo book book1)
+    ; (esParalelo book4 book1)
+    ; (esParalelo book5 book1)
+    ; (esParalelo book6 book1)
+    ; (libroAPlanificar book1)
 
     ;; ;;;;;;;;;;;;;;;;;;Juego de prueba 11 Paralelo
-    (esPredecesor book1 book2)
-    (esPredecesor book1 book3)
-    (esParalelo book2 book5)
-    (esParalelo book3 book5)
-    (esParalelo book3 book5)
-    (esPredecesor book5 book7)
-    (esParalelo book7 book8)
-    (libroAPlanificar book8)    
-    ;;1-->{2,3,5,4}-->{7,8}
+    ; (esParalelo book1 book2)
+    ; (esParalelo book2 book3)
+    ; (esParalelo book2 book4)
+    ; (libroLeido book3)
+    ; (libroLeido book2)
+    ; (libroAPlanificar book1)
 )
 
 (:goal (not (exists (?l - libro) 
