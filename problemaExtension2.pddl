@@ -127,12 +127,10 @@
     ; (libroAPlanificar book1)
 
     ;; ;;;;;;;;;;;;;;;;;;Juego de prueba 11 Paralelo
-    ; (esParalelo book1 book2)
-    ; (esParalelo book2 book3)
-    ; (esParalelo book2 book4)
-    ; (libroLeido book3)
-    ; (libroLeido book2)
-    ; (libroAPlanificar book1)
+     (esParalelo book1 book2)
+     (esParalelo book2 book3)
+     (esParalelo book2 book4)
+     (libroAPlanificar book1)
 )
 
 (:goal (not (exists (?l - libro) 

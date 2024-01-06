@@ -49,20 +49,22 @@
       :effect (libroAplanificar ?l)
   )
 
+
   (:action planificar-paralelo
       :parameters (?l - libro ?l2 - libro)
-      :precondition (and (esParalelo ?l ?l2)
-                          (not (libroAPlanificar ?l))
-                          (not (libroLeido ?l))
-                          (libroAPlanificar ?l2)
-                    )
-      :effect (libroAplanificar ?l)
+      :precondition (and (or (esParalelo ?l ?l2) (esParalelo ?l2 ?l)) (or (libroAPlanificar ?l) (libroAPlanificar ?l2)))
+      
+      :effect (and (when (and (not (libroAPlanificar ?l)) (not (libroLeido ?l)))
+                (libroAPlanificar ?l))
+                (when (and (not (libroAPlanificar ?l2)) (not (libroLeido ?l2)))
+                (libroAPlanificar ?l2))
+              )
   )
 
   (:action planificar-libro
     :parameters (?l - libro ?m - mes)
     :precondition (and (not (libroPlanificado ?l))
-                   (libroAPlanificar ?l) (<= (paginasEnLibro ?l)(- 800 (paginasEnMes ?m))))              
+                   (libroAPlanificar ?l)  (<= (paginasEnLibro ?l)(- 800 (paginasEnMes ?m))))              
     ;Cuando no existe un libro predecesor que no se haya planificado.
     ;Cuando no exise un libro predecesor que se haya planificado y en un mes no anterior al mes actual.
     :effect (when (not (exists (?l2 - libro)
@@ -71,13 +73,15 @@
                             (>= (mesLibroPlanificado ?l2) (mesANumero ?m))
                         )
                       )
-                      (and (esParalelo ?l2 ?l)
-                        (or (and (not (libroPlanificado ?l2)) (not (libroleido ?l2)))
-                            (and 
-                              (not (= (mesLibroPlanificado ?l2) (mesANumero ?m)))
-                              (not (= (mesLibroPlanificado ?l2) (- (mesANumero ?m)1)))
-                              (not (= (mesLibroPlanificado ?l2) (+ (mesANumero ?m)1)))
-                            )
+                      (and (or (esParalelo ?l2 ?l) (esParalelo ?l ?l2))
+                        (or 
+                          (and (not (libroAPlanificar ?l2)) (not (libroLeido ?l2)))
+                          (and 
+                            ; (> (mesLibroPlanificado ?l2) 0)
+                            (not (= (mesLibroPlanificado ?l2) (mesANumero ?m)))
+                            (not (= (mesLibroPlanificado ?l2) (- (mesANumero ?m)1)))
+                            (not (= (mesLibroPlanificado ?l2) (+ (mesANumero ?m)1)))
+                          )
                          )   
                       )
                       )

@@ -32,13 +32,13 @@
     (= (paginasEnMes diciembre) 0)
 
     (= (paginasEnLibro book) 300)
-    (= (paginasEnLibro book1) 501)
+    (= (paginasEnLibro book1) 21)
     (= (paginasEnLibro book2) 730)
     (= (paginasEnLibro book3) 800)
     (= (paginasEnLibro book4) 400)
     (= (paginasEnLibro book5) 200)
     (= (paginasEnLibro book6) 200)
-    (= (paginasEnLibro book7) 700)
+    (= (paginasEnLibro book7) 200)
     (= (paginasEnLibro book8) 120)
     (= (paginasEnLibro book9) 90)
     (= (paginasEnLibro book10) 300)
@@ -178,9 +178,11 @@
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;Juego de prueba 13 800 paginas solo precedecias
     ;si la suma de las paginas de book5+ book6 + book7 es menor que 800, los pone en el mismo mes los tres
     ; de otro modo, pone el que sobra en otro mes
-    (esPredecesor book5 book4)
-    (esPredecesor book6 book4)
+    ;(esPredecesor book5 book4)
+    ;(esPredecesor book6 book4)
+    ;(esParalelo book1 book5)
     (esPredecesor book7 book4)
+    (esParalelo book1 book4)
     (libroAPlanificar book4)
 )
 
