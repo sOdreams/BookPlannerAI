@@ -33,7 +33,7 @@
   (:action planificar-predecesor
       :parameters (?l - libro ?l2 - libro)
       :precondition (and (esPredecesor ?l ?l2)
-                          ;(not (libroAPlanificar ?l))
+                          (not (libroAPlanificar ?l))
                           (not (libroLeido ?l))
                           (libroAPlanificar ?l2)
                     )
