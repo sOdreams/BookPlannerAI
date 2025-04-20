@@ -1,24 +1,41 @@
-# Práctica de Planificación con IA
+🧠 AI Planning Practice with PDDL
 
-## Guía Mental
+This project involves solving a planning problem using FF Planner and PDDL (Planning Domain Definition Language). The solution requires two main files: one for the Domain and one for the Problem.
+🗂️ Project Structure
+1. Domain File (domain.pddl)
 
-Para abordar el problema de planificación con FF y Planificación, es necesario contar con dos archivos distintos: uno para el Dominio y otro para el Problema.
+The domain file defines the general rules and structure of the planning environment. It includes:
 
-### Fichero del Dominio
+    Predicates:
+    These describe relationships or properties of objects.
+    Example: IsPredecessor, HasBeenRead.
 
-En este archivo se definen:
+    Actions (Operators):
+    These describe possible changes in the environment. Each action has:
 
-1. **Predicados:** Descripciones de relaciones entre objetos, como "EsPredecesor" o "HaSidoLeido".
-2. **Acciones:** Operadores que permiten cambiar el estado del sistema. Cada acción consta de una precondición y, si se cumple, se ejecuta la acción.
+        Preconditions: Conditions that must be true for the action to be executed.
 
-### Fichero del Problema
+        Effects: The changes that occur when the action is executed.
 
-En este archivo se especifica:
+2. Problem File (problem.pddl)
 
-1. **Objetos del Problema:** Por ejemplo, X libros, junto con sus respectivos predicados si los tienen.
-2. **Estado Inicial:** Representa el estado inicial del problema, es decir, la situación inicial, donde ningún libro está presente.
-3. **Estado Goal:** Describe el estado al que se desea llegar, como el orden de los libros, entre otros.
+The problem file defines a specific planning instance using the domain. It includes:
 
----
+    Objects:
+    The specific items involved in the planning problem (e.g., a set of books).
 
+    Initial State:
+    The starting configuration of the environment.
+    Example: No books have been read or placed yet.
 
+    Goal State:
+    The desired final situation after applying the planning actions.
+    Example: All books are read or sorted in a specific order.
+
+🛠️ Usage
+
+    Define your domain.pddl and problem.pddl files.
+
+    Use a planner like FF Planner to compute the plan.
+
+    Analyze the plan steps and verify that they achieve the defined goal
